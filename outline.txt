@@ -1,0 +1,35 @@
+# What the actual fuck is this?
+- A way to track "domains" and their intrigues, settlements, resources, units, and armies.
+
+# Domains
+- Engage in intrigue
+- Spy on other domains
+- Control settlements
+- Control strongholds
+- Recruit units
+- Raise armies
+- Command armies
+
+# Settlements
+- Generate resources
+- Are the source of units
+
+# Resources
+- Are used to recruit, train, and equip units
+- Are used to build and upgrade strongholds
+
+# Units
+- Form armies
+- Garrison strongholds
+- Defend settlements
+
+# Armies
+- Consist of units
+- March across the map
+- Battle other armies
+- Besiege settlements
+
+# Strongholds
+- Can be in a settlement
+- Can be alone without a settlement
+- Can be garrisoned by units
