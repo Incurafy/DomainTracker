@@ -14,9 +14,9 @@ class Unit:
         self.origin = origin
         self.experience = Experience.REGULAR
         self.equipment = Equipment.LIGHT
-        self.ancestry = Ancestry.HUMAN
+        self.ancestry = UnitAncestry.HUMAN
         self.type = UnitType.INFANTRY
-        self.size = UnitSize.D6
+        self.size = UnitSize.MEDIUM
         self.casualties = self.size.max_casualties()
         self.tier = 1
         self.movement = 1
@@ -116,24 +116,24 @@ class Equipment(Enum):
             case _:
                 return "CULT PLUG"
     
-class Ancestry(Enum):
+class UnitAncestry(Enum):
     HUMAN = 0
     DWARF = 1
     
     def attack_bonus(self):
         match self:
-            case Ancestry.HUMAN:
+            case UnitAncestry.HUMAN:
                 return 1
-            case Ancestry.DWARF:
+            case UnitAncestry.DWARF:
                 return 1
             case _:
                 return 0
             
     def defence_bonus(self):
         match self:
-            case Ancestry.HUMAN:
+            case UnitAncestry.HUMAN:
                 return 2
-            case Ancestry.DWARF:
+            case UnitAncestry.DWARF:
                 return 2
             case _:
                 return 0
@@ -145,36 +145,36 @@ class Ancestry(Enum):
             
     def toughness_bonus(self):
         match self:
-            case Ancestry.HUMAN:
+            case UnitAncestry.HUMAN:
                 return 0
-            case Ancestry.DWARF:
+            case UnitAncestry.DWARF:
                 return 2
             case _:
                 return 0
             
     def morale_bonus(self):
         match self:
-            case Ancestry.HUMAN:
+            case UnitAncestry.HUMAN:
                 return 1
-            case Ancestry.DWARF:
+            case UnitAncestry.DWARF:
                 return 0
             case _:
                 return 0
     
     def command_bonus(self):
         match self:
-            case Ancestry.HUMAN:
+            case UnitAncestry.HUMAN:
                 return 1
-            case Ancestry.DWARF:
+            case UnitAncestry.DWARF:
                 return 0
             case _:
                 return 0
             
     def desc(self):
         match self:
-            case Ancestry.HUMAN:
+            case UnitAncestry.HUMAN:
                 return "human"
-            case Ancestry.DWARF:
+            case UnitAncestry.DWARF:
                 return "dwarf"
             case _:
                 return "tentacle monster"
@@ -345,36 +345,36 @@ class UnitType(Enum):
                 return "egirl"
             
 class UnitSize(Enum):
-    D4 = 0
-    D6 = 1
-    D8 = 2
-    D10 = 3
-    D12 = 4
+    SMALL = 0
+    MEDIUM = 1
+    LARGE = 2
+    HUGE = 3
+    GARGANTUAN = 4
     
     def max_casualties(self):
         match self:
-            case UnitSize.D4:
+            case UnitSize.SMALL:
                 return 4
-            case UnitSize.D6:
+            case UnitSize.MEDIUM:
                 return 6
-            case UnitSize.D8:
+            case UnitSize.LARGE:
                 return 8
-            case UnitSize.D10:
+            case UnitSize.HUGE:
                 return 10
-            case UnitSize.D12:
+            case UnitSize.GARGANTUAN:
                 return 12
             
     def desc(self):
         match self:
-            case UnitSize.D4:
+            case UnitSize.SMALL:
                 return "4"
-            case UnitSize.D6:
+            case UnitSize.MEDIUM:
                 return "6"
-            case UnitSize.D8:
+            case UnitSize.LARGE:
                 return "8"
-            case UnitSize.D10:
+            case UnitSize.HUGE:
                 return "10"
-            case UnitSize.D12:
+            case UnitSize.GARGANTUAN:
                 return "12"
             case _:
-                return "20"
+                return "egg"

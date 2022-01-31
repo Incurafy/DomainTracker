@@ -3,17 +3,18 @@
 from unit import Unit
 
 class Army:
-    def __init__(self, x, y):
-        self.x = x
-        self.y = y
+    def __init__(self, name, map_x, map_y):
+        self.name = name
+        self.map_x = map_x
+        self.map_y = map_y
         self.units = []
         
     # Add a unit to the army
-    def recruit(self, unit: Unit):
-        self.units.push(unit)
+    def add_unit(self, unit: Unit):
+        self.units.append(unit)
     
     # Remove a unit from the army
-    def dismiss(self, index):
+    def remove_unit(self, index):
         self.units.pop(index)
         
     # Set the x/y coordinates of the army on the campaign map
@@ -25,4 +26,4 @@ class Army:
         return (self.units + " " + len(self.units))
 
     def desc(self):
-        return "X: " + self.x + " Y: " + self.y + " " + self.units[0].desc()
+        return "Army - X: " + str(self.map_x) + " Y: " + str(self.map_y) + " " + self.units[0].desc()

@@ -5,7 +5,7 @@
 - Engage in intrigue
 - Spy on other domains
 - Control settlements
-- Control strongholds
+- Control stronghold
 - Recruit units
 - Raise armies
 - Command armies

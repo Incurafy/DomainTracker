@@ -2,47 +2,9 @@
 
 from enum import Enum
 from unit import Unit
+import utils
 
-class Settlement:
-    # name
-    # ancestry
-    # type
-    # owner
-    # size
-    # resource die
-    # number of currently raised units
-    # maximum number of units that can be raised
-    # strongholds (none or Type[Level])
-    # list of raised units
-    # garrison status
-    # list of garrisoned units
-    
-    def __init__(self, name, ancestry, size):
-        self.name = name
-        self.ancestry = ancestry
-        self.size = size
-        self.free_units = [] # list of units from this settlement without armies
-        self.strongholds = [] # list of strongholds in the settlement
-    
-    # Create a unit and add it to the free_units list
-    def raise_unit(self, name, experience, equipment, type, size, tier):
-        free_unit = Unit(name, self.name)
-        free_unit.set_ancestry(self.ancestry)
-        free_unit.set_experience(experience)
-        free_unit.set_equipment(equipment)
-        free_unit.set_type(type)
-        free_unit.set_size(size)
-        free_unit.set_tier(tier)
-        self.free_units.append(free_unit)
-    
-    # Remove a unit from the free_units list and return it so that it may be assigned to an army or garrison
-    def assign_unit(self, index):
-        return self.free_units.pop(index)
-    
-    def desc(self):
-        return self.name + " " + self.ancestry.desc() + " " + self.size.desc() + " num free units: " + str(len(self.free_units))
-        
-class SettlementSize(Enum):
+class SettlementType(Enum):
     VILLAGE = 1
     SMALL_TOWN = 2
     LARGE_TOWN = 3
@@ -66,3 +28,76 @@ class SettlementSize(Enum):
                 return "metropolis"
             case _:
                 return "your anus"
+            
+class SettlementSize(Enum):
+    VILLAGE = 1
+    SMALL_TOWN = 2
+    LARGE_TOWN = 3
+    SMALL_CITY = 4
+    LARGE_CITY = 5
+    METROPOLIS = 6
+    
+    def desc(self):
+        match self:
+            case SettlementSize.VILLAGE:
+                return 1
+            case SettlementSize.SMALL_TOWN:
+                return 2
+            case SettlementSize.LARGE_TOWN:
+                return 3
+            case SettlementSize.SMALL_CITY:
+                return 4
+            case SettlementSize.LARGE_CITY:
+                return 5
+            case SettlementSize.METROPOLIS:
+                return 6
+            case _:
+                return 69
+            
+class SettlementAncestry(Enum):
+    HUMAN = 1
+    DWARF = 2
+    
+    def desc(self):
+        match self:
+            case SettlementAncestry.HUMAN:
+                return "human"
+            case SettlementAncestry.DWARF:
+                return "dwarf"
+            case _:
+                return "catgirls"
+
+class Settlement:
+    # resource die
+    # number of currently raised units
+    # maximum number of units that can be raised
+    # garrison status
+    # list of garrisoned units
+    
+    def __init__(self, name, ancestry: SettlementAncestry, size: SettlementSize, map_x, map_y):
+        self.name = name
+        self.ancestry = ancestry
+        self.size = size
+        self.resource_die = utils.calc_die(size)
+        self.unassigned_units = [] # list of units from this settlement without armies
+        self.strongholds = [] # list of strongholds in the settlement
+        self.map_x = map_x
+        self.map_y = map_y
+    
+    # Create a unit and add it to the unassigned_units list
+    def raise_unit(self, name, experience, equipment, type, size, tier):
+        unassigned_unit = Unit(name, self.name)
+        unassigned_unit.set_ancestry(self.ancestry)
+        unassigned_unit.set_experience(experience)
+        unassigned_unit.set_equipment(equipment)
+        unassigned_unit.set_type(type)
+        unassigned_unit.set_size(size)
+        unassigned_unit.set_tier(tier)
+        self.unassigned_units.append(unassigned_unit)
+    
+    # Remove a unit from the unassigned_units list and return it so that it may be assigned to an army or garrison
+    def assign_unit(self, index):
+        return self.unassigned_units.pop(index)
+    
+    def desc(self):
+        return self.name + " " + self.ancestry.desc() + " " + str(self.size.desc()) + " num unassigned units: " + str(len(self.unassigned_units))
