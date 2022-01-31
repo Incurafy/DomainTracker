@@ -1,5 +1,6 @@
 # main.py
 
+import json
 import unit
 import army
 import domain
@@ -7,7 +8,9 @@ import settlement
 import jsonpickle
 from pathlib import Path
 
-def main():   
+def main():
+    domains = []
+    
     # Create a domain for the Players
     d_party = domain.Domain("Players", domain.DomainType.adventuring_party(), domain.DomainSize.SIZE_1)
     
@@ -32,14 +35,35 @@ def main():
     # Add the unassigned army to the Players domain
     d_party.add_army(a_army)
 
+    # Add the Player domain to the domains list
+    domains.append(d_party)
+
+    # Save the domains list
     file = open("data.json", 'w')
-    file.write(jsonpickle.encode(d_party))
+    file.write(jsonpickle.encode(domains))
+    file.close()
+   
+    # Load the domains list
+    data = Path("data.json").read_text()
+    domains = jsonpickle.decode(data)
+    
+    filtered = list(filter(lambda d: d.name == "Players", domains))
+    
+    print("Decoded: " + filtered[0].desc())
+    
+    filtered[0].name = "New Name"
+    
+    print("This should have new name: " + filtered[0].desc())
+    
+    
+    file = open("data.json", 'w')
+    file.write(jsonpickle.encode(domains))
     file.close()
     
     data = Path("data.json").read_text()
-    newdom = jsonpickle.decode(data)
+    domains = jsonpickle.decode(data)
     
-    print(newdom.desc())
+    print(domains[0].desc())    
 
 print()
 main()
