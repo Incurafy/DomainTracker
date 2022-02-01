@@ -66,7 +66,7 @@ class Settlement:
         self.name = name
         self.ancestry = ancestry
         self.size = size
-        self.resource_die = utils.calc_die(size)
+        self.settlement_die = utils.calc_die(size)
         self.unassigned_units = [] # list of units from this settlement without armies
         self.strongholds = [] # list of strongholds in the settlement
         self.map_x = map_x
@@ -88,4 +88,6 @@ class Settlement:
         return self.unassigned_units.pop(index)
     
     def desc(self):
-        return self.name + " " + self.ancestry.desc() + " " + str(self.size.desc()) + " num unassigned units: " + str(len(self.unassigned_units))
+        return (self.name + " " + self.ancestry.desc() + " " + str(self.size.desc())
+                + " num unassigned units: " + str(len(self.unassigned_units))
+                + "Settlement Die: d" + str(self.settlement_die))
