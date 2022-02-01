@@ -15,17 +15,17 @@ class SettlementType(Enum):
     
     def desc(self):
         match self:
-            case SettlementSize.VILLAGE:
+            case SettlementType.VILLAGE:
                 return "village"
-            case SettlementSize.SMALL_TOWN:
+            case SettlementType.SMALL_TOWN:
                 return "small town"
-            case SettlementSize.LARGE_TOWN:
+            case SettlementType.LARGE_TOWN:
                 return "large town"
-            case SettlementSize.SMALL_CITY:
+            case SettlementType.SMALL_CITY:
                 return "small city"
-            case SettlementSize.LARGE_CITY:
+            case SettlementType.LARGE_CITY:
                 return "large city"
-            case SettlementSize.METROPOLIS:
+            case SettlementType.METROPOLIS:
                 return "metropolis"
             case _:
                 return "your anus"
@@ -88,6 +88,6 @@ class Settlement:
         return self.unassigned_units.pop(index)
     
     def desc(self):
-        return (self.name + " " + self.ancestry.desc() + " " + str(self.size.desc())
-                + " num unassigned units: " + str(len(self.unassigned_units))
-                + "Settlement Die: d" + str(self.settlement_die))
+        return ("Name: " + self.name + " Ancestry: " + self.ancestry.desc() + " " + str(self.size.desc()) 
+                + " Unassigned Units: " + str(len(self.unassigned_units))
+                + " Settlement Die: d" + str(self.settlement_die))

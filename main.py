@@ -5,12 +5,10 @@ from domain import *
 from settlement import *
 from unit import *
 from army import *
-from storage import Storage
-import jsonpickle
-from pathlib import Path
+from domainhandler import DomainHandler
 
 def main():
-    domains = []
+    d_handler = DomainHandler()
     
     # Create a domain for the Players
     d_party = Domain("Players", DomainType.adventuring_party(), DomainSize.SIZE_1)
@@ -36,16 +34,11 @@ def main():
     # Add the unassigned army to the Players domain
     d_party.add_army(a_army)
 
-    # Add the Player domain to the domains list
-    domains.append(d_party)
-    
-    # Testing out the Storage class
-    storage = Storage("thiswontevenhavedatayet.json")
-    storage.store(domains, "domains.json")
-    storage = Storage("domains.json")
-    d = storage.find("Players")
-    print(d[0].desc())
-
+    # Add the Players domain to the domains list inside d_handler
+    d_handler.add(d_party)
+       
+    # Save domain data
+    d_handler.save()
 
 print()
 main()
