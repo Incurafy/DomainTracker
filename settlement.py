@@ -3,6 +3,7 @@
 from enum import Enum
 from unit import Unit
 import utils
+import ancestry
 
 class SettlementType(Enum):
     VILLAGE = 1
@@ -54,19 +55,6 @@ class SettlementSize(Enum):
             case _:
                 return 69
             
-class SettlementAncestry(Enum):
-    HUMAN = 1
-    DWARF = 2
-    
-    def desc(self):
-        match self:
-            case SettlementAncestry.HUMAN:
-                return "human"
-            case SettlementAncestry.DWARF:
-                return "dwarf"
-            case _:
-                return "catgirls"
-
 class Settlement:
     # resource die
     # number of currently raised units
@@ -74,7 +62,7 @@ class Settlement:
     # garrison status
     # list of garrisoned units
     
-    def __init__(self, name, ancestry: SettlementAncestry, size: SettlementSize, map_x, map_y):
+    def __init__(self, name, ancestry: ancestry.Ancestry, size: SettlementSize, map_x, map_y):
         self.name = name
         self.ancestry = ancestry
         self.size = size

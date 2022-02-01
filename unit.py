@@ -1,6 +1,7 @@
 # unit.py
 
 from enum import Enum
+import ancestry
 
 BASE_DEFENCE = 10
 BASE_TOUGHNESS = 10
@@ -14,7 +15,7 @@ class Unit:
         self.origin = origin
         self.experience = Experience.REGULAR
         self.equipment = Equipment.LIGHT
-        self.ancestry = UnitAncestry.HUMAN
+        self.ancestry = ancestry.Ancestry.HUMAN
         self.type = UnitType.INFANTRY
         self.size = UnitSize.MEDIUM
         self.casualties = self.size.max_casualties()
@@ -115,69 +116,6 @@ class Equipment(Enum):
                 return "super heavy"
             case _:
                 return "CULT PLUG"
-    
-class UnitAncestry(Enum):
-    HUMAN = 0
-    DWARF = 1
-    
-    def attack_bonus(self):
-        match self:
-            case UnitAncestry.HUMAN:
-                return 1
-            case UnitAncestry.DWARF:
-                return 1
-            case _:
-                return 0
-            
-    def defence_bonus(self):
-        match self:
-            case UnitAncestry.HUMAN:
-                return 2
-            case UnitAncestry.DWARF:
-                return 2
-            case _:
-                return 0
-    
-    def power_bonus(self):
-        match self:
-            case _:
-                return 0
-            
-    def toughness_bonus(self):
-        match self:
-            case UnitAncestry.HUMAN:
-                return 0
-            case UnitAncestry.DWARF:
-                return 2
-            case _:
-                return 0
-            
-    def morale_bonus(self):
-        match self:
-            case UnitAncestry.HUMAN:
-                return 1
-            case UnitAncestry.DWARF:
-                return 0
-            case _:
-                return 0
-    
-    def command_bonus(self):
-        match self:
-            case UnitAncestry.HUMAN:
-                return 1
-            case UnitAncestry.DWARF:
-                return 0
-            case _:
-                return 0
-            
-    def desc(self):
-        match self:
-            case UnitAncestry.HUMAN:
-                return "human"
-            case UnitAncestry.DWARF:
-                return "dwarf"
-            case _:
-                return "tentacle monster"
     
 class UnitType(Enum):
     INFANTRY = 0

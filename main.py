@@ -1,6 +1,6 @@
 # main.py
 
-import json
+from ancestry import Ancestry
 import unit
 import army
 import domain
@@ -15,7 +15,7 @@ def main():
     d_party = domain.Domain("Players", domain.DomainType.adventuring_party(), domain.DomainSize.SIZE_1)
     
     # Create a settlement called Homesville
-    s_homesville = settlement.Settlement("Homesville", settlement.SettlementAncestry.HUMAN, settlement.SettlementSize.VILLAGE, 0, 0)
+    s_homesville = settlement.Settlement("Homesville", Ancestry.HUMAN, settlement.SettlementSize.VILLAGE, 0, 0)
     
     # Create a unit and add it to the unassigned_units list within s_homesville
     s_homesville.raise_unit("Homesville Guard", unit.Experience.REGULAR, unit.Equipment.MEDIUM, unit.UnitType.INFANTRY, unit.UnitSize.MEDIUM, 1)
