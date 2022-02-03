@@ -45,7 +45,7 @@ class StrongholdSize(Enum):
                 return "kawaiiii"
 
 class Stronghold:    
-    def __init__(self, name, type:StrongholdType, size: StrongholdSize):
+    def __init__(self, name, type: StrongholdType, size: StrongholdSize):
         self.name = name
         self.type = type
         self.size = size

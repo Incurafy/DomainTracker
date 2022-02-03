@@ -4,7 +4,7 @@ import jsonpickle
 from pathlib import Path
 from os.path import exists
 
-FILE_NAME = "domains.json"
+FILE_NAME = "data/domains.json"
 
 class DomainHandler:
     def __init__(self):
